@@ -10,31 +10,31 @@ This module no longer includes automatic webserver configuration as of version 3
 need to ensure that you have a webserver hosting your apt repository. Here's an example based
 on puppet/nginx:
 
-  include ::nginx
-  
-  file { '/var/www':
-    ensure => 'directory',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
-  }
-  
-  ::nginx::resource::server { 'apt.example.org':
-    autoindex => 'on'
-    www_root  => '/var/www',
-  }
-  
-  class { '::freight':
-    document_root => '/var/www/debian',
-  }
-  
-  ::freight::config { 'foobar':
-    varcache                => '/var/www/debian/foobar',
-    gpg_key_id              => 'C42A86B2',
-    gpg_key_email           => 'john@example.org',
-    gpg_key_passphrase      => 'secret',
-    gpg_private_key_content => 'private-key-content',
-    gpg_public_key_content  => 'public-key-content',
-  }
+    include ::nginx
+    
+    file { '/var/www':
+      ensure => 'directory',
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0755',
+    }
+    
+    ::nginx::resource::server { 'apt.example.org':
+      autoindex => 'on'
+      www_root  => '/var/www',
+    }
+    
+    class { '::freight':
+      document_root => '/var/www/debian',
+    }
+    
+    ::freight::config { 'foobar':
+      varcache                => '/var/www/debian/foobar',
+      gpg_key_id              => 'C42A86B2',
+      gpg_key_email           => 'john@example.org',
+      gpg_key_passphrase      => 'secret',
+      gpg_private_key_content => 'private-key-content',
+      gpg_public_key_content  => 'public-key-content',
+    }
 
 Multiple repositories can be created by adding more entries of ::freight::config.
