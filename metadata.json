@@ -9,31 +9,22 @@
   "dependencies": [
     {
       "name": "golja/gnupg",
-      "version_requirement": ">= 1.2.3"
+      "version_requirement": ">= 1.2.3 < 2.0.0"
     },
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.0.0"
+      "version_requirement": ">= 4.0.0 < 9.0.0"
     },
     {
       "name": "puppetlabs/apt",
-      "version_requirement": ">= 2.0.0"
+      "version_requirement": ">= 2.0.0 < 9.0.0"
     }
   ],
   "operatingsystem_support": [
     {
-      "operatingsystem": "Debian",
-      "operatingsystemrelease": [
-        "7",
-        "8",
-        "9"
-      ]
-    },
-    {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "14.04",
-        "16.04"
+        "20.04"
       ]
     }
   ],
@@ -43,7 +34,7 @@
       "version_requirement": ">= 4.7.0 < 6.0.0"
     }
   ],
-  "pdk-version": "1.4.1",
-  "template-url": "file:///opt/puppetlabs/pdk/share/cache/pdk-templates.git",
-  "template-ref": "1.4.1-0-g52adbbb"
+  "pdk-version": "2.4.0",
+  "template-url": "pdk-default#2.4.0",
+  "template-ref": "tags/2.4.0-0-gfa6b6d2"
 }
