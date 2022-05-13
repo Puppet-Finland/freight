@@ -6,35 +6,35 @@ residing on the same host.
 
 # Module usage
 
-Setup freight and nginx (using [puppetfinland/nginx](https://github.com/Puppet-Finland/puppet-nginx.git)):
+This module no longer includes automatic webserver configuration as of version 3.0.0. So you
+need to ensure that you have a webserver hosting your apt repository. Here's an example based
+on puppet/nginx:
 
-    class { '::freight':
-      manage_webserver      =>  true,
-      document_root         =>  '/var/www/html',
-      allow_address_ipv4    => 'anyv4',
-      allow_address_ipv6    => 'anyv6',
-      default_gpg_key_id    => 'C42A86B2',
-      default_gpg_key_email => 'john@example.org',
-    }
+  include ::nginx
+  
+  file { '/var/www':
+    ensure => 'directory',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+  
+  ::nginx::resource::server { 'apt.example.org':
+    autoindex => 'on'
+    www_root  => '/var/www',
+  }
+  
+  class { '::freight':
+    document_root => '/var/www/debian',
+  }
+  
+  ::freight::config { 'foobar':
+    varcache                => '/var/www/debian/foobar',
+    gpg_key_id              => 'C42A86B2',
+    gpg_key_email           => 'john@example.org',
+    gpg_key_passphrase      => 'secret',
+    gpg_private_key_content => 'private-key-content',
+    gpg_public_key_content  => 'public-key-content',
+  }
 
-Create two freight repositories:
-
-    # This one uses the default GPG keys defined above and stores the passphrase
-    # on disk
-    ::freight::config { 'repo1':
-      varcache            => '/var/www/html/repo1',
-      gpg_key_passphrase  => 'mysecret',
-    }
-    
-    # This one uses a custom set of GPG keys and always prompts for the
-    # passphrase
-    ::freight::config { 'repo2':
-      varcache      => '/var/www/html/repo2',
-      gpg_key_id    => '974C71E8',
-      gpg_key_email => 'jane@example.org',
-    }
-
-For details look at these manifests:
-
-* [Class: freight](manifests/init.pp)
-* [Define: freight::config](manifests/config.pp)
+Multiple repositories can be created by adding more entries of ::freight::config.
