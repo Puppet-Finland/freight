@@ -13,6 +13,8 @@
 #   Email address of the package signing key - check with "gpg --list-keys".
 # @param gpg_key_passphrase
 #   The passphrase of the GPG keypair's private key.
+# @param custom_content
+#   Arbitrary content to be appended to the config file.
 #
 define freight::config
 (
@@ -22,6 +24,7 @@ define freight::config
   String               $gpg_key_id,
   String               $gpg_key_email,
   String               $gpg_key_passphrase,
+  String               $custom_content = "",
 )
 {
   include ::freight::params
