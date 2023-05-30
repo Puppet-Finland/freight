@@ -1,4 +1,4 @@
-# Example Freight configuration.
+# MANAGED BY PUPPET, do not edit.
 
 # Directories for the Freight library and Freight cache.  Your web
 # server's document root should be `$VARCACHE`.
@@ -24,3 +24,5 @@ GPG="<%= @l_gpg_key_email %>"
 # Whether to follow symbolic links in `$VARLIB` to produce extra components
 # in the cache directory (on) or not (off).
 SYMLINKS="off"
+
+<%= @custom_content %>
